@@ -1,15 +1,20 @@
 import { useState, useRef } from 'react';
 
-export default (initialValue: any) => {
+type Value = any;
+type Return = [Value, (value: Value) => void, Value];
+
+export default (initialValue: Value): Return => {
   const [state, setState] = useState(initialValue);
+  const [prev, setPrev] = useState(undefined);
   const ref = useRef(state);
 
   return [
-    state,
-    ref.current,
+    ref,
     (value: any) => {
+      setPrev(ref.current);
       ref.current = value;
       setState(value);
-    }
+    },
+    prev
   ];
 };
