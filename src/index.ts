@@ -1,9 +1,12 @@
 import { useState, useRef } from 'react';
 
-type Value = any;
-type Return = [Value, (value: Value) => void, Value];
+type HookReturn = [
+  any,
+  (value: any) => void,
+  any
+];
 
-export default (initialValue: Value): Return => {
+export default (initialValue: any): HookReturn => {
   const [state, setState] = useState(initialValue);
   const [prev, setPrev] = useState(undefined);
   const ref = useRef(state);
